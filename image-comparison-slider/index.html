@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>HTML & CSS Sandbox</title>
+  </head>
+  <body>
+    <h1>Live Image Comparison Slider (HTML, CSS & JavaScript)</h1>
+
+    <div class="container">
+      <div class="image-container">
+        <img src="./before.webp" alt="before" class="image before" />
+        <img src="./after.webp" alt="after" class="image after" />
+      </div>
+      <div class="slider">
+        <div class="slider-line"></div>
+        <div class="slider-handle">
+          <div class="slider-arrow left"></div>
+          <div class="slider-arrow right"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const container = document.querySelector(".container");
+      const slider = document.querySelector(".slider");
+      const sliderHandle = document.querySelector(".slider-handle");
+      const afterImage = document.querySelector(".image.after");
+      let isDragging = false;
+
+      console.log(afterImage);
+
+      const handleMouseDown = (e) => {
+        isDragging = true;
+        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mouseup", handleMouseUp);
+      };
+
+      const handleMouseUp = (e) => {
+        console.log("Stopped dragging");
+        isDragging = false;
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mouseup", handleMouseUp);
+      };
+
+      const handleMouseMove = (e) => {
+        if (isDragging) {
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+
+          const percentage = (x / rect.width) * 100;
+          const clampedPercentage = Math.max(0, Math.min(100, percentage));
+          slider.style.left = `${clampedPercentage}%`;
+          afterImage.style.clipPath = `inset(0 0 0 ${clampedPercentage}%`;
+        }
+      };
+
+      slider.addEventListener("mousedown", handleMouseDown);
+    </script>
+  </body>
+</html>
