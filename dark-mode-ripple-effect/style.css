@@ -1,0 +1,159 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* overlay mask */
+  --mask-radius: 0px;
+  --mask-x: 0%;
+  --mask-y: 0%;
+
+  /* page colors */
+  --dark-bg: #252525;
+  --text-color: #3c3c43;
+  --bg-dark: rgb(26, 26, 26);
+  --border-color: rgb(226, 226, 227);
+  --gray-1: #f0eeee;
+
+  /* feedback component */
+  --blue-light: hsl(210, 75%, 97%);
+  --bg-border: hsl(206, 65%, 78%);
+  --blue-1: hsl(211, 63%, 61%);
+  --blue-2: hsl(218, 53%, 48%);
+  --blue-3: hsl(220, 40%, 21%);
+}
+
+body.dark {
+  --mask-radius: 150vmax;
+
+  --dark-bg: #252525;
+  /* --navbar-dark-bg: #1a1a1a; */
+
+  --text-color: #dfdfd6;
+  --border-color: rgb(0, 0, 0);
+
+  --blue-light: hsl(220, 40%, 21%);
+  --blue-1: hsl(207, 65%, 68%);
+  --blue-2: hsl(206, 68%, 93%);
+  --blue-3: hsl(210, 75%, 97%);
+  --bg-border: hsl(220, 48%, 40%);
+}
+
+body {
+  font-size: 1.3rem;
+  color: var(--text-color);
+  height: 300vh;
+}
+
+h1,
+h2 {
+  line-height: 1.9;
+}
+
+/* 2) The “ripple” overlay behind content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--dark-bg); /* dark-mode bg */
+  z-index: -1; /* send it behind text */
+  clip-path: circle(var(--mask-radius) at var(--mask-x) var(--mask-y));
+  transition: clip-path 0.6s ease, opacity 0.6s ease-in;
+  opacity: 0.5;
+}
+
+body.dark::before {
+  transition: clip-path 0.6s ease-in, opacity 0.6s;
+  opacity: 1;
+}
+nav {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: border-color 0.4s 0.3s, color 0.3s ease 0.3s;
+}
+body.dark nav {
+  transition: border-color 0.5s ease, color 0.3s ease 0.3s;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+section {
+  margin-top: 3rem;
+  color: var(--text-color);
+  transition: color 0.4s ease 0.2s;
+}
+
+.feedback {
+  max-width: 620px;
+  width: 100%;
+  display: flex;
+  border: 2px solid var(--bg-border);
+  background: var(--blue-light);
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  transition: background 0.3s ease 0.3s, border-color 0.3s ease 0.3s;
+  align-items: center;
+}
+
+.feedback h5 {
+  color: var(--blue-3);
+  line-height: 1.8;
+  transition: color 0.3s ease 0.3s;
+}
+
+.feedback p {
+  font-size: 0.9rem;
+  color: var(--blue-2);
+  transition: color 0.3s ease 0.3s;
+}
+
+.feedback .content {
+  display: flex;
+  align-items: center;
+}
+
+.feedback .btn {
+  color: var(--blue-1);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--bg-border);
+  border-radius: 25px;
+  white-space: nowrap;
+  transition: 0.3s ease 0.3s;
+  margin-left: auto;
+}
+
+.feedback .icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--blue-1);
+  border-radius: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  transition: background 0.3s ease 0.3s;
+}
+
+.feedback .icon svg {
+  color: var(--blue-light);
+  transition: color 0.3s ease 0.3s;
+}
